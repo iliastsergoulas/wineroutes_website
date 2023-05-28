@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wine Routes</title>
+  <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+  <meta name="keywords" content="wine, wineroutes, wineries, winery, agristats, agriculture, wine tasting">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <link rel="icon" href="img/icon.png">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/animate.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101173631-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-101173631-2');
+  </script>
+  <!-- =======================================================
+    Theme Name: Bethany
+    Theme URL: https://bootstrapmade.com/bethany-free-onepage-bootstrap-theme/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+  ======================================================= -->
+  <script>
+    window.onload = function(){		
+      var enImage = document.getElementById('english');
+      var elImage = document.getElementById('greek');
+      mylanguage=localStorage.getItem("language");
+      if (localStorage.getItem("language")){
+        if (localStorage.language=='en'){
+          names=englishnames;
+        } else {
+          names=greeknames;
+        };
+        refreshnames();
+      } else {
+        localStorage.setItem("language", "el-GR");
+        names=greeknames;
+        refreshnames();
+      };
+      enImage.onclick = function() {
+        localStorage.setItem("language", "en");
+        names=englishnames;
+        refreshnames();
+      };
+      elImage.onclick = function() {
+        localStorage.setItem("language", "el-GR");
+        names=greeknames;
+        refreshnames();
+      };
+      function refreshnames(){
+        document.getElementById('header1').innerHTML=names[0];
+        document.getElementById('header2').innerHTML=names[1];
+        document.getElementById('header3').innerHTML=names[37];
+        document.getElementById('header4').innerHTML=names[46];
+        document.getElementById('header6').innerHTML=names[4];
+        //document.getElementById('header7').innerHTML=names[47];
+        document.getElementById('title1').innerHTML=names[5];
+        document.getElementById('title2').innerHTML=names[6];
+        document.getElementById('saying1').innerHTML=names[7];
+        document.getElementById('saying2').innerHTML=names[25];
+        document.getElementById('char1').innerHTML=names[8];
+        document.getElementById('char2').innerHTML=names[9];
+        document.getElementById('char3').innerHTML=names[10];
+        document.getElementById('char4').innerHTML=names[11];
+        document.getElementById('char5').innerHTML=names[12];
+        document.getElementById('char6').innerHTML=names[13];
+        document.getElementById('char7').innerHTML=names[14];
+        document.getElementById('char8').innerHTML=names[15];
+        document.getElementById('char9').innerHTML=names[16];
+        document.getElementById('char10').innerHTML=names[17];
+        document.getElementById('char11').innerHTML=names[18];
+        document.getElementById('char12').innerHTML=names[19];
+        document.getElementById('char13').innerHTML=names[20];
+        document.getElementById('char14').innerHTML=names[21];
+        //document.getElementById('char15').innerHTML=names[22];  
+        //document.getElementById('char16').innerHTML=names[23];
+        //document.getElementById('char17').innerHTML=names[24];
+        document.getElementById('char18').innerHTML=names[38];
+        document.getElementById('char19').innerHTML=names[39];
+        //document.getElementById('char20').innerHTML=names[40];
+        //document.getElementById('char21').innerHTML=names[41];
+        //document.getElementById('char22').innerHTML=names[42];
+        //document.getElementById('char23').innerHTML=names[43];
+        //document.getElementById('char24').innerHTML=names[44];
+        //document.getElementById('sales1').innerHTML=names[26];
+        //document.getElementById('sales2').innerHTML=names[27];
+        document.getElementById('sales3').innerHTML=names[28];
+        document.getElementById('sales4').innerHTML=names[29];
+        document.getElementById('contact1').innerHTML=names[30];
+        document.getElementById('contact2').innerHTML=names[31];
+        document.getElementById('contact5').innerHTML=names[36];
+        //document.getElementById('sales5').innerHTML=names[45];
+        //document.getElementById('sales6').innerHTML=names[46];
+      };
+    };
+    var names;
+    var greeknames=["Αρχική","Χαρακτηριστικά","Βιβλία","Σεμινάρια","Επικοινωνία","Wine Routes","Οι δικοί σας Δρόμοι του Κρασιού","'Ο καθρέφτης αντικατοπτρίζει τη μορφή και το κρασί το νου.' - Αισχύλος",
+	"Χαρακτηριστικά","Δείτε όλες τις λειτουργίες της εφαρμογής.","Οινοποιεία","Περισσότερα από 10 χιλ. οινοποιεία παγκοσμίως","Σχεδιασμός διαδρομών","Μπορείτε να σχεδιάσετε τις δικές σας διαδρομές και να τις μοιραστείτε με την κοινότητα.","Ανταλλαγή απόψεων","Μπορείτε να μοιραστείτε την άποψή σας για οινοποιεία, οίνους κλπ ή να ακολουθήσετε άλλους οινόφιλους.",
+	"Εργαλείο για οινοποιούς","Κάθε οινοποιός μπορεί να διαχειριστεί το οινοποιείο και να προωθήσει τα προϊόντα του.","Αμπελώνες","Ανακαλύψτε αμπελώνες και οινικές περιοχές.","Ενημερώσεις","Ενημερωθείτε για εκδηλώσεις και νέα από τα ίδια τα οινοποιεία.","Κατεβάστε την εφαρμογή","Δωρεάν λήψη της εφαρμογής","ΛΗΨΗ ΕΦΑΡΜΟΓΗΣ","'Εν οίνω αλήθεια.' - Αλκαίος","Βιβλία για τη διαδρομή","Eπιλέξτε βιβλία που θα σας κάνουν συντροφιά στη διαδρομή σας","Σεμινάρια για προετοιμασία","Eπιλέξτε σεμινάρια που θα ενισχύσουν τις γνώσεις σας πάνω στον οίνο","Επικοινωνία","Για ό,τι χρειαστείτε, μπορείτε να επικοινωνήσετε με τους εξής τρόπους","Στείλτε μήνυμα","Το μήνυμά σας έχει σταλεί. Ευχαριστούμε!","Αδυναμία αποστολής!","Αποστολή","Επισκεφθείτε μας","Φωτογραφίες","Πάρτε μια ματιά της εφαρμογής",
+      "ΛΗΨΗ ΑΠΟ Google Play","ΛΗΨΗ ΑΠΟ Aptoide","ΛΗΨΗ ΑΠΟ Slideme","ΛΗΨΗ ΑΠΟ GetJar","ΛΗΨΗ ΑΠΟ UptoDown","Αξεσουάρ για οινόφιλους",
+      "Διαλέξτε από μια ποικιλία βιβλίων και μάθετε τα πάντα για το κρασί","Βιβλία","Σύνδεση Οινοποιείου"];
+    var englishnames=["Home","Features","Books","Courses","Contact","Wine Routes","Your own Wine Routes","'Mirror reflects the shape and wine the mind.' - Aeschylus",
+	"Features","Check out the application's characteristics.","Wineries","Over 10k wineries globally","Design routes","You can design your own routes and share them with the community.","Share your opinion","You can share your opinion about wineries, wines etc or follow other winelovers.",
+	"A tool for winemakers","Each winemaker may manage their winery and promote their products.","Vineyards","Discover vineyards and wine areas.","Updates","View events and updates posted by wineries themselves.","Download available","Free app download","Download now","'In wine the truth.' - Alcaeus","Books for the road","Select books that will keep you company through your trip","Courses to prepare","Select courses that will strengthen your knowledge on wine","Contact","For anything you may need, you can contact through these channels","Email Us","Your message has been sent. Thank you!","Can't send","Send","Visit Us","Media","Take a look at the application",
+      "Download from Google Play","Download from Aptoide","Download from Slideme","Download from GetJar","Download from UptoDown",
+      "Accessories for wine lovers","Choose from a wide book collection and learn all about wine","Books","Winery Login"
+    ];
+  </script>
+  <style>
+    .imglink {position: relative;}
+    .text-block {
+      font-size:1.1em;
+      position: absolute;
+      bottom: 10%;
+      right: 10%;
+      background-color: black;
+      color: white;
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+  </style>
+</head>
+
+<body>
+  <!--header-->
+  <header class="main-header" id="header">
+    <div class="bg-color">
+      <!--nav-->
+      <nav class="nav navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="col-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar"><span class="fa fa-bars"></span></button>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="mynavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#header" id="header1"></a></li>
+                <li><a href="#feature" id="header2"></a></li>
+                <li><a href="#photos" id="header3"></a></li>
+                <li><a href="#winestuff" id="header4"></a></li>
+                <li><a href="#contact" id="header6"></a></li>
+                <!--<li><a href="wineryadmin.html" target="_blank" id="header7"></a></li>-->
+                <li><img id="greek" width="75%" height="50%" src="img/gr.png" alt="Ελληνικά"/></li>
+                <li><img id="english" width="70%" height="50%" src="img/en.png" alt="English"/></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!--/ nav-->
+      <div class="container text-center">
+        <div class="wrapper wow fadeInUp">
+          <div>
+            <h3 class="title d-inline-block" id="title1"></h3>
+          </div>
+          <h4 class="sub-title" id="title2"></h4>
+        </div>
+      </div>
+    </div>
+
+  </header>
+  <!--/ header-->
+  <!---->
+  <section id="cta-1">
+    <div class="container">
+      <div class="row">
+        <div class="cta-info text-center">
+          <h3 id="saying1"></h3>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  <section id="feature" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 wow fadeInLeft">
+          <div class="section-title">
+            <h2 class="head-title" id="char1"></h2>
+            <hr class="botm-line">
+            <p class="sec-para" id="char2"></p>
+          </div>
+        </div>
+        <div class="col-md-9">
+        	<div class="row">
+	          <div class="col-md-6 wow fadeInRight">
+	            <div class="icon">
+	              <i class="fa fa-glass"></i>
+	            </div>
+	            <div class="icon-text">
+	              <h3 class="txt-tl" id="char3"></h3>
+	              <p class="txt-para" id="char4"></p>
+	            </div>
+	          </div>
+	          <div class="col-md-6 wow fadeInRight">
+	            <div class="icon">
+	              <i class="fa fa-road"></i>
+	            </div>
+	            <div class="icon-text">
+	              <h3 class="txt-tl" id="char5"></h3>
+	              <p class="txt-para" id="char6"></p>
+	            </div>
+	          </div>
+	        </div>
+          	<div class="row">
+	          <div class="col-md-6 wow fadeInRight">
+	            <div class="icon">
+	              <i class="fa fa-star"></i>
+	            </div>
+	            <div class="icon-text">
+	              <h3 class="txt-tl" id="char7"></h3>
+	              <p class="txt-para" id="char8"></p>
+	            </div>
+	          </div>
+	          <div class="col-md-6 wow fadeInRight">
+	            <div class="icon">
+	              <i class="fa fa-lightbulb-o"></i>
+	            </div>
+	            <div class="icon-text">
+	              <h3 class="txt-tl" id="char9"></h3>
+	              <p class="txt-para" id="char10"></p>
+	            </div>
+	          </div>
+	        </div>
+          	<div class="row">
+	          <div class="col-md-6 wow fadeInRight">
+	            <div class="icon">
+	              <i class="fa fa-map-marker"></i>
+	            </div>
+	            <div class="icon-text">
+	              <h3 class="txt-tl" id="char11"></h3>
+	              <p class="txt-para" id="char12"></p>
+	            </div>
+	          </div>
+	          <div class="col-md-6 wow fadeInRight">
+	            <div class="icon">
+	              <i class="fa fa-clock-o"></i>
+	            </div>
+	            <div class="icon-text">
+	              <h3 class="txt-tl" id="char13"></h3>
+	              <p class="txt-para" id="char14"></p>
+	            </div>
+	          </div>
+	        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  <section class="section-padding wow fadeInUp" id="photos">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-xs-3 wow fadeInLeft">
+          <div class="section-title">
+            <h2 class="head-title" id="char18"></h2>
+            <hr class="botm-line">
+            <p class="sec-para" id="char19"></p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+          <div class="section-title">
+            <img id="screenshot1" width="75%" height="50%" src="img/screenshot_1.png" alt="Ελληνικά"/>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+          <div class="section-title">
+            <img id="screenshot2" width="75%" height="50%" src="img/screenshot_2.png" alt="Ελληνικά"/>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+          <div class="section-title">
+            <img id="screenshot3" width="75%" height="50%" src="img/screenshot_3.png" alt="Ελληνικά"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-3">
+          <div class="section-title">
+            <a href='https://play.google.com/store/apps/details?id=com.phonegap.wineroutes&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width="100%" height="100%" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+          <div class="section-title">
+            <img id="screenshot4" width="75%" height="50%" src="img/screenshot_4.png" alt="Ελληνικά"/>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+          <div class="section-title">
+            <img id="screenshot6" width="75%" height="50%" src="img/screenshot_6.png" alt="Ελληνικά"/>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+          <div class="section-title">
+            <img id="screenshot7" width="75%" height="50%" src="img/screenshot_7.png" alt="Ελληνικά"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  <!---->
+  <section id="winestuff" class="section-padding parallax bg-image-2 section wow fadeIn">
+    <div class="container text-center"> 
+    </div>
+  </section>
+  <!---->
+  <section class="section-padding wow fadeInUp" id="courses">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          <div class="section-title">
+            <h2 class="head-title" id="sales3"></h2>
+            <hr class="botm-line">
+            <p class="sec-para" id="sales4"></p>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-12">
+          <!-- Rakuten Affiliate Network Showcase starts here -->
+          <script id="showcase-9f08a685-65c0-4c81-a73b-4c924610a995">;(function(d,t,k){var l=d.createElement(t),s=d.getElementById('showcase-' + k);l.src='https://showcase.linksynergy.com/v1/snippets/D99FD221F0F4408A8743037A1BBB8BEDC77375430EC74E54A18B4F44F15AF1E0/'+ k + '.js';s.parentNode.insertBefore(l,s);}(document,'script','9f08a685-65c0-4c81-a73b-4c924610a995'));</script>
+          <!-- Rakuten Affiliate Network Showcase ends here -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="cta-1_1">
+    <div class="container">
+      <div class="row">
+        <div class="cta-info text-center">
+          <h3 id="saying2"></h3>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  <section class="section-padding wow fadeInUp" id="contact">
+    <div class="container">
+      <div class="row white">
+        <div class="col-md-8 col-sm-12">
+          <div class="section-title">
+            <h2 class="head-title black" id="contact1"></h2>
+            <hr class="botm-line">
+            <p class="sec-para black" id="contact2"></p>
+          </div>
+        </div>
+        <div class="col-md-12 col-sm-12">
+          <div class="col-md-10 col-sm-10">
+            <h3 class="cont-title" id="contact5"></h3>
+            <div class="location-info">
+              <a href="" target="_blank" class="link-dec"><span aria-hidden="true" style="font-size:200%;margin-right:10px;" class="fa fa-envelope white"></span></a>
+              <a target="_blank" href="https://www.facebook.com/winerouteseu/" class="link-dec"><span aria-hidden="true" style="font-size:200%;margin-right:10px;" class="fa fa-facebook white"></span></a>
+              <a target="_blank" href="https://twitter.com/winerouteseu" class="link-dec"><span aria-hidden="true" style="font-size:200%;margin-right:10px;" class="fa fa-twitter"></span></a>
+              <a target="_blank" href="http://www.winerouteseu.tumblr.com" class="link-dec"><span aria-hidden="true" style="font-size:200%;margin-right:10px;" class="fa fa-tumblr"></span></a>
+              <a target="_blank" href="https://gr.pinterest.com/agristatseu/wine-routes/" class="link-dec"><span aria-hidden="true" style="font-size:200%;margin-right:10px;" class="fa fa-pinterest"></span></a>
+              <a target="_blank" href="https://linkedin.com/company/wine-routes" class="link-dec"><span aria-hidden="true" style="font-size:200%;margin-right:10px;" class="fa fa-linkedin"></span></a>
+              <a target="_blank" href="https://www.instagram.com/wine_routes/" class="link-dec"><span aria-hidden="true" style="font-size:200%;margin-right:10px;" class="fa fa-instagram"></span></a>
+              <p><a href='https://play.google.com/store/apps/details?id=com.phonegap.wineroutes&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img style="margin:0" width="25%" height="25%" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a></p>
+              <p><a href="https://www.producthunt.com/posts/wine-routes?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-wine-routes" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=315610&theme=dark" alt="Wine Routes - Discover new wineries and wines and share your experience | Product Hunt" style="width:250px; height:54px;" width="250" height="54" /></a></p>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="contact-icon-container hidden-md hidden-sm hidden-xs">
+              <span aria-hidden="true" style="width:50%;" class="fa fa-envelope-o"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  <!---->
+  <footer class="" id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 footer-copyright">
+          © Bethany Theme - All rights reserved
+          <div class="credits">
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+
+        <div class="col-sm-6 footer-copyright">
+          <div class="pull-right hidden-xs hidden-sm">
+            © Wine Routes - All rights reserved
+            <div class="credits">
+              Designed by <a href="https://www.linkedin.com/in/iliastsergoulas/">Ilias Tsergoulas</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!---->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/custom.js"></script>
+
+</body>
+</html>

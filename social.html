@@ -1,0 +1,1310 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Wine Routes - Admin</title>
+    <meta name="description" content="Wine Routes - Winery admin">
+    <meta name="keywords" content="wine, wineroutes, wineries, winery, agristats, agriculture, wine tasting">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="google-signin-client_id" content="215265792449-8uh5mr6rjkmg00345bnaoi5a1plgcntl.apps.googleusercontent.com">
+    <link rel="icon" href="img/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="css/adminstyle.css">
+    <link rel="stylesheet" href="css/vegas.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.5/ol.css">
+    <link type="text/css" rel="stylesheet" href="css/toastr.min.css">
+    <link rel="stylesheet" href="css/agile_carousel.css" type='text/css'>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="js/vegas.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js"></script>
+    <script src="https://www.highcharts.com/media/com_demo/js/highslide.config.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="https://www.highcharts.com/media/com_demo/css/highslide.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.5/ol.js"></script>
+    <script src="js/dom-i18n.min.js" type="text/javascript"></script>
+    <script defer src="js/toastr.min.js"></script>
+    <script defer src="js/languages.js"></script>
+    <script src="js/agile_carousel.alpha.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101173631-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-101173631-2');
+        var code='';
+        // Linkedin login
+        function getLinkedin(sessionid,code) { 
+            linkedinurl="https://app.wineroutes.eu/linkedin?sessionid="+sessionid+"&code="+code+"&mode=loginadmin";
+            $.ajax({
+                type:'POST',url:linkedinurl,cache:false,dataType:'json',
+                success: function(data) {
+                    console.log(data);
+                    if (data.location){window.open(data.location);}
+                    else{filldata(data);};
+                },
+                error: function(request, status, error) {
+                    alert(error);
+                }
+            });
+        };
+        // Twitter login
+        function getTwitter(sessionid,code) { 
+            twitterurl="https://app.wineroutes.eu/twitter?sessionid="+sessionid+"&code="+code+"&mode=loginadmin";
+            $.ajax({
+                type:'POST',url:twitterurl,cache:false,dataType:'json',
+                success: function(data) {
+                    console.log(data);
+                    if (data.location){window.open(data.location);}
+                    else{filldata(data);};
+                },
+                error: function(request, status, error) {
+                    alert(error);
+                }
+            });
+        };
+        // Facebook login
+        function getFacebook(sessionid,code) { 
+            facebookurl="https://app.wineroutes.eu/facebook?sessionid="+sessionid+"&code="+code+"&mode=loginadmin";
+            $.ajax({
+                type:'POST',url:facebookurl,cache:false,dataType:'json',
+                success: function(data) {
+                    console.log(data);
+                    if (data.location){window.open(data.location);}
+                    else{filldata(data);};
+                },
+                error: function(request, status, error) {
+                    alert(error);
+                }
+            });
+        };
+        // Google login
+        function getGoogle(sessionid,code) { 
+            linkedinurl="https://app.wineroutes.eu/google?sessionid="+sessionid+"&code="+code+"&mode=loginadmin";
+            $.ajax({
+                type:'POST',url:linkedinurl,cache:false,dataType:'json',
+                success: function(data) {
+                    console.log(data);
+                    if (data.location){window.open(data.location);}
+                    else{filldata(data);};
+                },
+                error: function(request, status, error) {
+                    alert(error);
+                }
+            });
+        };
+        function filldata(data){
+            console.log(data);
+            if (data==1){toastr.error(names[0]);} 
+            else if (data==2){toastr.error(names[1]);} 
+            else if (data==3){} 
+            else if (data.loginstatus=='logged'){
+                document.getElementById('login').classList.add('d-none');
+                document.getElementById('login').classList.remove('d-block');
+                document.getElementById('content').classList.add('d-block');
+                document.getElementById('content').classList.remove('d-none');
+                document.getElementById('profile-menu').classList.remove('d-none');
+                var baselayer = new ol.layer.Tile({ source: new ol.source.OSM(),zIndex:1 });
+                var map = new ol.Map({
+                    layers: [baselayer],
+                    controls: ol.control.defaults({attributionOptions: ({collapsible: true})
+                    }).extend([
+                        new ol.control.ZoomSlider(),
+                        new ol.control.ZoomToExtent({extent: [2287148, 4156999,3087148, 4956999]}),
+                        new ol.control.OverviewMap(),
+                        new ol.control.FullScreen()
+                    ]),
+                    target: 'winerylocation',
+                    view: new ol.View({center: [2687148, 4556999],zoom: 6.5})
+                });
+                var markers = new ol.layer.Vector({
+                    source: new ol.source.Vector(),zIndex:2,
+                    style: new ol.style.Style({image: new ol.style.Icon({anchor: [0.5, 1],src: 'img/marker.png'})})
+                });
+                map.addLayer(markers);
+                map.on('click', function(evt) {
+                    coordinates=ol.proj.transform(evt.coordinate,'EPSG:3857', 'EPSG:4326');
+                    mylatitude=coordinates[1];
+                    mylongitude=coordinates[0];
+                    var marker = new ol.Feature(new ol.geom.Point(ol.proj.fromLonLat(ol.proj.transform(evt.coordinate,'EPSG:3857', 'EPSG:4326'))));
+                    markers.getSource().clear();
+                    markers.getSource().addFeature(marker);
+                    map.renderSync(2000);
+                });
+                localStorage.setItem("sessionid",data.sessionid);
+            } 
+            else {
+                sessionStorage.setItem("wineryid",data.winerydata[0].wineryid);
+                document.getElementById('login').classList.add('d-none');
+                document.getElementById('login').classList.remove('d-block');
+                document.getElementById('content').classList.add('d-block');
+                document.getElementById('content').classList.remove('d-none');
+                document.getElementById('profile-menu').classList.remove('d-none');
+                if (data.winerydata){
+                    console.log(data.winerydata[0].status);
+                    if (data.winerydata[0].status==0){
+                        document.getElementById('winerystatus').classList.add('btn-danger');
+                        document.getElementById('winerystatus').innerHTML='Inactive';
+                    } else if (data.winerydata[0].status==1){
+                        document.getElementById('winerystatus').classList.add('btn-primary');
+                        document.getElementById('winerystatus').innerHTML='Active';
+                    }
+                    if (data.images!='null'){
+                        var mhtml = '<ul id="slides">';
+                        i=0;
+                        $.each(data.images, function(key, val){
+                            if (i==0){mhtml += '<li class="slide showing"><div class="bannerImg"><img src="'+val.myimage+'" /></div></li>';}
+                            else{mhtml += '<li class="slide"><div class="bannerImg"><img src="'+val.myimage+'" /></div></li>';};
+                            i=i+1;
+                        });
+                        mhtml += '</ul>';
+                        $('#slider').append($(mhtml));
+                        var slides = document.querySelectorAll('#slides .slide');
+                        var currentSlide = 0;
+                        var slideInterval = setInterval(nextSlide,2000);
+                        function nextSlide() {
+                            slides[currentSlide].className = 'slide';
+                            currentSlide = (currentSlide+1)%slides.length;
+                            slides[currentSlide].className = 'slide showing';
+                        };
+                        function previousSlide() {
+                            goToSlide(currentSlide-1);
+                        };
+                        function goToSlide(n) {
+                            slides[currentSlide].className = 'slide';
+                            currentSlide = (n+slides.length)%slides.length;
+                            slides[currentSlide].className = 'slide showing';
+                        };
+                        var next = document.getElementById('next');
+                        var previous = document.getElementById('previous');
+                        next.onclick = function() {
+                            nextSlide();
+                        };
+                        previous.onclick = function() {
+                            previousSlide();
+                        };
+                    };
+                    document.getElementById("views").innerHTML=data.views;
+                    document.getElementById("clicks").innerHTML=data.clicks;
+                    document.getElementById("likes").innerHTML=data.likes;
+                    document.getElementById("uniqueviewers").innerHTML=data.uniqueviewers;
+                    document.getElementById("reviews").innerHTML=data.reviews;
+                    document.getElementById("rating").innerHTML=data.rating;
+                    document.getElementById("wineryname").value=data.winerydata[0].name;
+                    document.getElementById("wineryemail").value=data.winerydata[0].email;
+                    document.getElementById("wineryphone").value=data.winerydata[0].phone;
+                    document.getElementById("winerywebsite").value=data.winerydata[0].website;
+                    document.getElementById("winerycountry").value=data.winerydata[0].country;
+                    document.getElementById("wineryregion").value=data.winerydata[0].region;
+                    document.getElementById("wineryprefecture").value=data.winerydata[0].prefecture;
+                    document.getElementById("wineryaddress").value=data.winerydata[0].address;
+                    document.getElementById("winerydescription").value=data.winerydata[0].winerydescription;
+                    document.getElementById("wineryepiskepsimo").value=data.winerydata[0].episkepsimo;
+                    document.getElementById("avatar").src=data.winerydata[0].image;
+                    document.getElementById("profileimage").src=data.avatar;
+                    document.getElementById("accountusername").value=data.username;
+                    document.getElementById("accountemail").value=data.email;
+                    document.getElementById("shortdescription_upd").value=data.shortdescription;
+                    document.getElementById("wineslike_upd").value=data.wineslike;
+                    document.getElementById("winesdislike_upd").value=data.winesdislike;
+                    mylatitude=data.winerydata[0].latitude;
+                    mylongitude=data.winerydata[0].longitude;
+                    var baselayer = new ol.layer.Tile({ source: new ol.source.OSM(),zIndex:1 });
+                    var map = new ol.Map({
+                        layers: [baselayer],
+                        controls: ol.control.defaults({attributionOptions: ({collapsible: true})
+                        }).extend([
+                            new ol.control.ZoomSlider(),
+                            new ol.control.ZoomToExtent({extent: [2287148, 4156999,3087148, 4956999]}),
+                            new ol.control.OverviewMap(),
+                            new ol.control.FullScreen()
+                        ]),
+                        target: 'winerylocation',
+                        view: new ol.View({center: [2687148, 4556999],zoom: 6.5})
+                    });
+                    var markers = new ol.layer.Vector({
+                        source: new ol.source.Vector(),zIndex:2,
+                        style: new ol.style.Style({image: new ol.style.Icon({anchor: [0.5, 1],src: 'img/marker.png'})})
+                    });
+                    map.addLayer(markers);
+                    map.on('click', function(evt) {
+                        coordinates=ol.proj.transform(evt.coordinate,'EPSG:3857', 'EPSG:4326');
+                        mylatitude=coordinates[1];
+                        mylongitude=coordinates[0];
+                        var marker = new ol.Feature(new ol.geom.Point(ol.proj.fromLonLat(ol.proj.transform(evt.coordinate,'EPSG:3857', 'EPSG:4326'))));
+                        markers.getSource().clear();
+                        markers.getSource().addFeature(marker);
+                        if (mylocation){map.removeLayer(mylocation);};
+                        map.renderSync(2000);
+                    });
+                    data.winesdata.forEach(function(object) {
+                        $(".data-table tbody").append("<tr data-name='"+object.name+"' data-color='"+object.color+"' data-appelation='"+object.appelation+"' data-region='"+object.region+"' data-vintage='"+object.vintage+"' data-characteristics='"+object.characteristics+"'><td>"+object.name+"</td><td>"+object.color+"</td><td>"+object.appelation+"</td><td>"+object.region+"</td><td>"+object.vintage+"</td><td>"+object.characteristics+"</td><td><button class='btn btn-info btn-xs btn-edit'>Edit</button><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");
+                    });
+                    var mylocation = new ol.layer.Vector({
+                        source: new ol.source.Vector(),zIndex:3,
+                        style: new ol.style.Style({image: new ol.style.Icon({anchor: [0.5, 1],src: 'img/marker.png'})})
+                    });
+                    var location = new ol.Feature(
+                        new ol.geom.Point(
+                            ol.proj.fromLonLat([data.winerydata[0].longitude,data.winerydata[0].latitude])
+                        )
+                    );
+                    mylocation.getSource().addFeature(location);
+                    map.addLayer(mylocation);
+                    if (markers){markers.getSource().clear();};
+                    var dates=[];
+                    var views=[];
+                    var clicks=[];
+                    var likes=[];
+                    data.get_series.forEach(function(val) { 
+                        dates.push(val.date); 
+                        views.push(val.views); 
+                        clicks.push(val.clicks);
+                        likes.push(val.likes); 
+                    });
+                    Highcharts.chart('traffic-chart', {
+                        chart: {type : 'line',scrollablePlotArea: {minWidth: 700}},
+                        title: {text: ''},
+                        subtitle: {text: ''},
+                        //data:data.get_series,
+                        xAxis: {
+                            categories:dates,tickInterval: 7 * 24 * 3600 * 1000, // one week
+                            tickWidth:0,gridLineWidth: 1,
+                            labels: {rotation:-45,style:{fontSize:'13px',fontFamily:'Verdana, sans-serif'},align:'left',x:3,y:-3}
+                        },
+                        yAxis: [{ // left y axis
+                            title: {text: null},labels: {align: 'left',x: 3,y: 16,format: '{value:.,0f}'},showFirstLabel: false
+                        }, { // right y axis
+                            linkedTo: 0,gridLineWidth: 0,opposite: true,title: {text: null},
+                            labels: {align: 'right',x: -3,y: 16,format: '{value:.,0f}'},showFirstLabel: false
+                        }],
+                        legend: {align: 'left',verticalAlign: 'bottom',borderWidth: 0},
+                        tooltip: {shared: true,crosshairs: true},
+                        plotOptions: {
+                            series: {
+                                cursor: 'pointer',
+                                point: {
+                                    events: {
+                                        click: function (e) {
+                                            hs.htmlExpand(null, {
+                                                pageOrigin: {x: e.pageX || e.clientX,y: e.pageY || e.clientY},
+                                                headingText: this.series.name,
+                                                maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' + this.y + ' sessions',
+                                                width: 200
+                                            });
+                                        }
+                                    }
+                                },
+                                marker: {lineWidth: 1}
+                            }
+                        },
+                        series : [{name : 'Views',data : views},{name : 'Website Clicks',data : clicks},{name : 'Likes',data : likes}]
+                    });
+                    $('#traffic-chart').resize(function () {chart.reflow();});
+                };
+            };
+            document.getElementById("progress").style.display = "none";
+            localStorage.setItem("sessionid",data.sessionid);
+            document.getElementById("loginemail").value='';
+            document.getElementById("loginpwd").value='';
+        }
+        document.onreadystatechange = function(e){
+            if (document.readyState === 'complete'){
+                if (localStorage.sessionid && localStorage.sessionid.length>1){
+                    login('none','none',localStorage.sessionid);
+                };
+                var url_string = window.location;
+                var url = new URL(url_string);
+                var code = url.searchParams.get("code");
+                if (code){
+                    getGoogle('',code);
+                };
+            };
+        };
+        function account_modal(){
+            $('#account_modal').modal(options);
+        };
+        window.onload = function(){
+            mylanguage=localStorage.getItem("language");
+            if (localStorage.getItem("language")){
+                if (localStorage.language=='el-GR'){
+                    names=greeknames;
+                } else if (localStorage.language=='fr') {
+                    names=frenchnames;
+                } else if (localStorage.language=='de') {
+                    names=germannames;
+                } else if (localStorage.language=='it') {
+                    names=italiannames;
+                } else if (localStorage.language=='es') {
+                    names=spanishnames;
+                } else if (localStorage.language=='jp') {
+                    names=japanesenames;
+                } else if (localStorage.language=='ch') {
+                    names=chinesenames;
+                } else if (localStorage.language=='ru') {
+                    names=russiannames;
+                } else if (localStorage.language=='pt') {
+                    names=portuguesenames;
+                } else {
+                    names=englishnames;
+                };
+                var i18n = domI18n({
+                    selector: '[data-translatable]',separator: ' // ',
+                    languages: ['el-GR','en','fr','de','it','es','jp','ch','ru','pt'],currentLanguage: localStorage.language
+                });
+            } else {
+                localStorage.setItem("language", "en");
+                var i18n = domI18n({
+                    selector: '[data-translatable]',separator: ' // ',
+                    languages: ['el-GR','en','fr','de','it','es','jp','ch','ru','pt'],currentLanguage: localStorage.language
+                });
+                names=englishnames;
+            };
+            $('#languageselector').on('change', function() {
+                if (document.getElementById('languageselector').options[document.getElementById('languageselector').selectedIndex].value=='en') {
+                    i18n.changeLanguage('en');
+                    localStorage.setItem("language", "en");
+                    names=englishnames;
+                } else if (document.getElementById('languageselector').options[document.getElementById('languageselector').selectedIndex].value=='el-GR') {
+                    i18n.changeLanguage('el-GR');
+                    localStorage.setItem("language", "el-GR");
+                    names=greeknames;
+                } else if (document.getElementById('languageselector').options[document.getElementById('languageselector').selectedIndex].value=='es') {
+                    i18n.changeLanguage('es');
+                    localStorage.setItem("language", "es");
+                    names=spanishnames;
+                } else if (document.getElementById('languageselector').options[document.getElementById('languageselector').selectedIndex].value=='it') {
+                    i18n.changeLanguage('it');
+                    localStorage.setItem("language", "it");
+                    names=italiannames;
+                } else if (document.getElementById('languageselector').options[document.getElementById('languageselector').selectedIndex].value=='fr') {
+                    i18n.changeLanguage('fr');
+                    localStorage.setItem("language", "fr");
+                    names=frenchnames;
+                } else if (document.getElementById('languageselector').options[document.getElementById('languageselector').selectedIndex].value=='de') {
+                    i18n.changeLanguage('de');
+                    localStorage.setItem("language", "de");
+                    names=germannames;
+                } else if (document.getElementById('languageselector').options[document.getElementById('languageselector').selectedIndex].value=='pt') {
+                    i18n.changeLanguage('pt');
+                    localStorage.setItem("language", "pt");
+                    names=portuguesenames;
+                } else if (document.getElementById('languageselector').options[document.getElementById('languageselector').selectedIndex].value=='ch') {
+                    i18n.changeLanguage('ch');
+                    localStorage.setItem("language", "ch");
+                    names=chinesenames;
+                } else if (document.getElementById('languageselector').options[document.getElementById('languageselector').selectedIndex].value=='jp') {
+                    i18n.changeLanguage('jp');
+                    localStorage.setItem("language", "jp");
+                    names=japanesenames;
+                } else if (document.getElementById('languageselector').options[document.getElementById('languageselector').selectedIndex].value=='ru') {
+                    i18n.changeLanguage('ru');
+                    localStorage.setItem("language", "ru");
+                    names=russiannames;
+                };
+            });
+        };
+        var mylatitude='a',mylongitude='a';
+        $("input[type='image']").click(function() {
+            $("input[id='my_file']").click();
+        });
+        function login(myemail,mypwd,sessionid) {
+            myloginurl='https://app.wineroutes.eu/loginadmin';
+            myloginurl=myloginurl.concat('?email=',myemail,'&password=',mypwd,'&sessionid=',sessionid);
+            $.ajax({
+                type:'POST',url:myloginurl,cache:false,dataType:'json',
+                success: function(data) {
+                    filldata(data);
+                },
+                error: function(request, status, error) {
+                    toastr.error(names[6]);
+                    document.getElementById("progress").style.display = "none";
+                    document.getElementById("loginemail").value='';
+                    document.getElementById("loginpwd").value='';
+                }
+            });
+        };
+        function logout() {
+            localStorage.clear();
+            sessionStorage.clear();
+            document.getElementById("profileimage").src="https://wineroutes.eu/images/account.png";
+            document.getElementById('login').classList.remove('d-none');
+            document.getElementById('login').classList.add('d-block');
+            document.getElementById('content').classList.remove('d-block');
+            document.getElementById('content').classList.add('d-none');
+            document.getElementById('profile-menu').classList.add('d-none');
+            document.getElementById("wineryname").value='';
+            document.getElementById("wineryemail").value='';
+            document.getElementById("wineryphone").value='';
+            document.getElementById("winerywebsite").value='';
+            document.getElementById("winerycountry").value='';
+            document.getElementById("wineryregion").value='';
+            document.getElementById("wineryprefecture").value='';
+            document.getElementById("wineryaddress").value='';
+            document.getElementById("winerydescription").value='';
+            document.getElementById("wineryepiskepsimo").value='';
+        }
+        function register() {
+            myusername=document.getElementById('registerusername').value;
+            myemail=document.getElementById('registeremail').value;
+            mypwd=document.getElementById('registerpwd').value;
+            mypwd_repeat=document.getElementById("registerpwd-repeat").value;
+            if (mypwd===mypwd_repeat){
+                myregisterurl='https://app.wineroutes.eu/registeradmin';
+                myregisterurl=myregisterurl.concat('?username=',myusername,'&email=',myemail,'&password=',mypwd);
+                $.ajax({
+                    type:'POST',url:myregisterurl,cache:false,dataType:'json',
+                    success: function(data) {
+                        if (data=='1'){toastr.error(names[0]);
+                        } else if (data=='2'){toastr.error(names[1]);
+                        } else if (data=='3'){toastr.error(names[2]);
+                        } else if (data=='4'){toastr.error(names[3]);
+                        } else if (data=='5'){toastr.success(names[7]);
+                        };
+                        document.getElementById("progress").style.display = "none";
+                    },
+                    error: function(request, status, error) {
+                        toastr.error(names[6]);
+                        document.getElementById("progress").style.display = "none";
+                    }
+                });
+                document.getElementById("registerusername").value='';
+                document.getElementById("registeremail").value='';
+                document.getElementById("registerpwd").value='';
+                document.getElementById("registerpwd-repeat").value='';
+            } else {
+                toastr.error(names[8]);
+                document.getElementById("progress").style.display = "none";
+            };
+        };
+        function addgoogleclick(sessionid){
+            myurl="https://app.wineroutes.eu/addgoogleclick";
+            myurl=myurl.concat('?sessionid=',sessionid);
+            $.ajax({
+                type:'POST',url:myurl,cache:false,dataType:'json',
+                success: function(data) {},
+                error: function(request, status, error) {}
+            });
+        };
+        function updatewinery(){
+            if(document.getElementById("winerydescription").value.length < 10 || document.getElementById("wineryepiskepsimo").value < 10 || 
+                document.getElementById("wineryname").value=='' || document.getElementById("wineryemail").value=='' || 
+                document.getElementById("wineryphone").value=='' || document.getElementById("wineryregion").value=='' || 
+                document.getElementById("wineryprefecture").value=='' || document.getElementById("wineryaddress").value=='' || 
+                mylatitude=='a' || mylongitude=='a') {
+                document.getElementById("progress").style.display = "block";
+                document.getElementById("progress").style.display = "none";
+            } else {
+                document.getElementById("progress").style.display = "block";
+                var input = document.querySelector('input[id="wineryavatar"]');
+                var data = new FormData();
+                data.append('file', input.files[0]);
+                data.append('wineryid', sessionStorage.wineryid);
+                data.append('email', '');
+                data.append('password', '');
+                data.append('sessionid', localStorage.sessionid);
+                data.append('wineryname', document.getElementById("wineryname").value);
+                data.append('wineryemail', document.getElementById("wineryemail").value);
+                data.append('wineryphone', document.getElementById("wineryphone").value);
+                data.append('winerywebsite', document.getElementById("winerywebsite").value);
+                data.append('winerycountry', document.getElementById("winerycountry").value);
+                data.append('wineryregion', document.getElementById("wineryregion").value);
+                data.append('wineryprefecture', document.getElementById("wineryprefecture").value);
+                data.append('wineryaddress', document.getElementById("wineryaddress").value);
+                data.append('winerylatitude', mylatitude);
+                data.append('winerylongitude', mylongitude);
+                data.append('winerydescription', document.getElementById("winerydescription").value);
+                data.append('wineryepiskepsimo', document.getElementById("wineryepiskepsimo").value);
+                fetch('https://app.wineroutes.eu/updatewinery', {
+                    method: 'POST',body: data
+                }).then(function(response) {return response.json();})
+                .then(function(response) {
+                    if (response=="Success"){toastr.success(names[9]);}
+                    else {toastr.error(names[10]);};
+                    document.getElementById("progress").style.display="none";
+                });
+            };  
+        };
+        function updatewines(){
+            var winesdata = $('table#winestable tr').get().map(function(row) {
+                return $(row).find('td').get().map(function(cell) {
+                    if ($(cell).html()!='<button class="btn btn-info btn-xs btn-edit">Edit</button><button class="btn btn-danger btn-xs btn-delete">Delete</button>'){
+                        return $(cell).html();
+                    }
+                });
+            });
+            winesdata=JSON.stringify(winesdata);
+            winesdata = winesdata.replace("[],", "");
+            mywinesurl='https://app.wineroutes.eu/updatewines';
+            mywinesurl=mywinesurl.concat('?sessionid=',localStorage.sessionid,'&wines=',winesdata,'&wineryid=',sessionStorage.wineryid);
+            $.ajax({
+                type:'POST',url:mywinesurl,cache:false,dataType:'json',
+                success: function(data) {
+                    if (data=='Null data'){toastr.error(names[11]);} 
+                    else {toastr.success(names[9]);};
+                    document.getElementById("progress").style.display = "none";
+                },
+                error: function(request, status, error) {
+                    toastr.error(names[6]);
+                    document.getElementById("progress").style.display = "none";
+                }
+            });
+        };
+        function accountupdate(){
+            document.getElementById("progress").style.display = "block";
+            myusername=document.getElementById('accountusername').value;
+            myemail=document.getElementById('accountemail').value;
+            mypwd=document.getElementById('accountpwd').value;
+            shortdescription=document.getElementById('shortdescription_upd').value;
+            wineslike=document.getElementById('wineslike_upd').value;
+            winesdislike=document.getElementById('winesdislike_upd').value;
+            mypwd_repeat=document.getElementById("accountpwd-repeat").value;
+            var input = document.querySelector('input[name="avatar"]');
+            var data = new FormData();
+            data.append('avatar', input.files[0]);
+            data.append('username', myusername);
+            data.append('sessionid', localStorage.sessionid);
+            data.append('email', myemail);
+            data.append('password', mypwd);
+            data.append('shortdescription', shortdescription);
+            data.append('wineslike', wineslike);
+            data.append('winesdislike', winesdislike);
+            if (mypwd===mypwd_repeat){
+                if(mypwd===''){mypwd=localStorage.mypassword;}
+                fetch('https://app.wineroutes.eu/accountupdate', {method: 'POST',body: data})
+                .then(function(response) {return response.json();})
+                .then(function(response) {
+                    if (response=="3"){toastr.success("3");}
+                    else if (response=="2"){toastr.error("2");}
+                    else if (response=="1"){toastr.error("1");};
+                    document.getElementById("progress").style.display = "none";
+                });
+                localStorage.setItem("myemail", myemail);
+                localStorage.setItem("mypassword", mypwd);
+                localStorage.setItem("myusername", myusername);
+                document.getElementById('accountusername').value=myusername;
+                document.getElementById("accountemail").value=myemail;
+                document.getElementById("accountpwd").value='';
+                document.getElementById("accountpwd-repeat").value='';
+            } else {
+                toastr.error(errors[26]);
+                document.getElementById("progress").style.display = "none";
+            };
+        };
+        function resetpwd(){
+            myresetpwdurl='https://app.wineroutes.eu/resetpwdrequest?email='+document.getElementById("myresetemail").value;
+            $.ajax({
+                type:'POST',url:myresetpwdurl,cache:false,dataType:'json',
+                success: function(data) {
+                    if (data==1){
+                        toastr.success(names[12]);
+                        document.getElementById("progress").style.display = "none";
+                    }
+                    else if (data==2){
+                        toastr.error(names[13]);
+                        document.getElementById("progress").style.display = "none";
+                    }
+                },
+                error: function(request, status, error) {toastr.error(names[6]);document.getElementById("progress").style.display = "none";}
+            });
+        };
+    </script>
+</head>
+
+<body>
+    <div id="progress" class="loadingoverlay" style="display:none;"></div>
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="wineryadmin.html"><i class="menu-icon fa fa-laptop"></i><p data-translatable>Πίνακας Ελέγχου // Dashboard // Tableau de bord // Instrumententafel // Cruscotto // Tablero // ダッシュボード // 仪表板 // Приборная доска // Painel de controle</p></a>
+                    </li>
+                    <li class="active">
+                        <div class="form-group" style="width:100%;">
+                            <form>
+                                <select class="form-control" id="languageselector">
+                                    <option value='en'>English</option>
+                                    <option value='el-GR'>Ελληνικά</option>
+                                    <option value='it'>Italiano</option>
+                                    <option value='de'>Deutsche</option>
+                                    <option value='fr'>Français</option>
+                                    <option value='es'>Español</option>
+                                    <option value='ru'>Русский</option>
+                                    <option value='ch'>中文</option>
+                                    <option value='jp'>日本語</option>
+                                    <option value='pt'>Português</option>
+                                </select>
+                            </form>
+                        </div>
+                    </li>
+                    <li class="active"><a target="_blank" href="mailto:winerouteseu@gmail.com"><i class="menu-icon fa fa-envelope"></i>E-mail</a></li>
+                    <li class="active"><a target="_blank" href="https://www.facebook.com/winerouteseu/"><i class="menu-icon fa fa-facebook"></i>Facebook</a></li>
+                    <li class="active"><a target="_blank" href="https://twitter.com/winerouteseu"><i class="menu-icon fa fa-twitter"></i>Twitter</a></li>
+                    <li class="active"><a target="_blank" href="https://www.reddit.com/r/wineroutes/"><i class="menu-icon fa fa-reddit"></i>Reddit</a></li>
+                    <li class="active"><a target="_blank" href="http://www.winerouteseu.tumblr.com"><i class="menu-icon fa fa-tumblr"></i>Tumblr</a></li>
+                    <li class="active"><a target="_blank" href="https://gr.pinterest.com/agristatseu/wine-routes/"><i class="menu-icon fa fa-pinterest"></i>Pinterest</a></li>
+                    <li class="active"><a target="_blank" href="https://linkedin.com/company/wine-routes"><i class="menu-icon fa fa-linkedin"></i>LinkedIn</a></li>
+                    <li class="active"><a target="_blank" href="https://github.com/iliastsergoulas"><i class="menu-icon fa fa-github"></i>GitHub</a></li>
+                    <li class="acive">
+                        <script type="text/javascript" language="javascript" src="http://www.jdoqocy.com/placeholder-41537101?target=_top&mouseover=N"></script>
+                    </li>
+                    <li class="active text-center">
+                       <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                            <input type="hidden" name="cmd" value="_s-xclick" />
+                            <input type="hidden" name="hosted_button_id" value="2WEMW8F5FFU8N" />
+                            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                            <img alt="" border="0" src="https://www.paypal.com/en_GR/i/scr/pixel.gif" width="1" height="1" />
+                        </form>
+                    </li>
+                    <li class="active">
+                        <a target="_blank" onclick="addgoogleclick('localStorage.sessionid')" href='https://play.google.com/store/apps/details?id=com.phonegap.wineroutes&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width="100%" height="100%" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+                    </li>
+                    <li class="menu-title" style="text-transform:lowercase;font-weight:300;line-height:20px;"><p data-translatable>Αν σας αρέσει η εφαρμογή, τότε μια καλή κριτική μπορεί να φέρει περισσότερους χρήστες για το οινοποιείο σας. // If you like the app, then a good rating will bring more users for your winery. // Si vous aimez l'application, une bonne note apportera plus d'utilisateurs à votre vignoble. // Wenn Ihnen die App gefällt, bringt eine gute Bewertung mehr Nutzer für Ihr Weingut. // Se ti piace l'app, una buona valutazione porterà più utenti alla tua azienda. // Si te gusta la aplicación, una buena calificación atraerá más usuarios para tu bodega. // アプリが気に入ったら、良い評価でワイナリーのユーザーを増やすことができます。 // 如果您喜欢该应用程序，那么良好的评价将为您的酒庄吸引更多用户。 // Если вам нравится приложение, то хороший рейтинг принесет больше пользователей для вашей винодельни. // Se você gosta do aplicativo, uma boa classificação trará mais usuários para sua vinícola.</p></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header">
+            <div class="top-left">
+                <div class="navbar-header">
+                    <a class="navbar-brand"><img src="img/logoicon.png" alt="Logo">  Wine Routes</a>
+                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="header-menu">
+                    <div id="profile-menu" class="user-area dropdown float-right d-none">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img id="profileimage" src="https://wineroutes.eu/images/account.png" class="user-avatar rounded-circle">
+                        </a>
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" onclick="document.getElementById('register').classList.add('d-none');document.getElementById('register').classList.remove('d-block');document.getElementById('login').classList.add('d-none');document.getElementById('login').classList.remove('d-block');document.getElementById('reset').classList.add('d-none');document.getElementById('reset').classList.remove('d-block');document.getElementById('content').classList.add('d-none');document.getElementById('content').classList.remove('d-block');document.getElementById('profile').classList.add('d-block');document.getElementById('profile').classList.remove('d-none');"><i class="fa fa-user"></i><p data-translatable>Προφίλ // Profile // Profils // Profile // Profili // Perfiles // プロファイル // 配置文件 // Профили // Perfis</p></a>
+                            <a class="nav-link" onclick="logout();"><i class="fa fa-power-off"></i><p data-translatable>Αποσύνδεση // Logout // Se déconnecter // Ausloggen // Logout // Cerrar sesión // ログアウト // 登出 // Выйти // Sair</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div id="login" class="d-block">
+            <div class="sufee-login d-flex align-content-center flex-wrap">
+                <div class="container">
+                    <div class="login-content">
+                        <div class="login-form">
+                            <p data-translatable>Παρακαλώ συμπληρώστε τη φόρμα για να συνδεθείτε. // Please fill in this form to log into your account. // Veuillez remplir le formulaire pour vous connecter. // Bitte füllen Sie das Formular aus, um sich anzumelden. // Compilare il modulo per accedere. // Complete el formulario para iniciar sesión. // フォームに入力してログインしてください。 // 请填写表格进行登录。 // Пожалуйста, заполните форму для входа. // Por favor, preencha o formulário para fazer o login.</p>
+                            <div class="form-group">
+                                <label data-translatable>Email // Email // Email // Email // Email // Correo electrónico // メール // 电子邮件 // Электронная почта // E-mail</label>
+                                <input type="email" id="loginemail" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label data-translatable>Κωδικός // Password // Mot de passe // Passwort // Password // Contraseña // パスワード // 密码 // пароль // Senha</label>
+                                <input type="password" id="loginpwd" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="checkbox">
+                                <label class="pull-right">
+                                    <a onclick="document.getElementById('login').classList.add('d-none');document.getElementById('login').classList.remove('d-block');document.getElementById('reset').classList.add('d-block');document.getElementById('reset').classList.remove('d-none');" data-translatable>Ανάκτηση // Recover // Récupération // Erholung // Recupero // Recuperación // 回復 // 恢复 // восстановление // Recuperação</a>
+                                </label>
+                            </div>
+                            <button onclick="login(document.getElementById('loginemail').value,document.getElementById('loginpwd').value)" class="btn btn-primary btn-flat m-b-30 m-t-30" data-translatable>Είσοδος // Login // Connexion // Login // Login // Iniciar sesión // ログイン // 登录 // Логин // Login</button>
+                            <div class="register-link m-t-15 text-center">
+                                <a onclick="document.getElementById('login').classList.add('d-none');document.getElementById('login').classList.remove('d-block');document.getElementById('register').classList.add('d-block');document.getElementById('register').classList.remove('d-none');"><p data-translatable>Εγγραφή // Sign Up // Enregistrement // Registrierung // Registrazione // Registro // 登録 // Регистрация // Registro</p></a>
+                            </div>
+                            <p class="text-center" style="font-size:160%;">OR</p>
+                            <!-- Sharingbutton Facebook -->
+                            <a class="resp-sharing-button__link d-block" onclick="getFacebook(localStorage.sessionid,'')" target="_blank" id='facebooksignin' rel="noopener" style="width:100%;color:white;"  aria-label="Sign In with Facebook">
+                              <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--large"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
+                              </div>Sign In with Facebook</div>
+                            </a>
+                            <!-- Sharingbutton Twitter -->
+                            <a class="resp-sharing-button__link d-block" onclick="getTwitter(localStorage.sessionid,'')" target="_blank" id='twittersignin' rel="noopener" style="width:100%;color:white;" aria-label="Sign In with Twitter">
+                              <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--large"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                              </div>Sign In with Twitter</div>
+                            </a>
+                            <!-- Sharingbutton LinkedIn -->
+                            <a class="resp-sharing-button__link d-block" target="_blank" onclick="getLinkedin(localStorage.sessionid,'')" id='linkedinsignin' rel="noopener" style="width:100%;color:white;" aria-label="Sign In with LinkedIn">
+                              <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--large"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 21.5h-5v-13h5v13zM4 6.5C2.5 6.5 1.5 5.3 1.5 4s1-2.4 2.5-2.4c1.6 0 2.5 1 2.6 2.5 0 1.4-1 2.5-2.6 2.5zm11.5 6c-1 0-2 1-2 2v7h-5v-13h5V10s1.6-1.5 4-1.5c3 0 5 2.2 5 6.3v6.7h-5v-7c0-1-1-2-2-2z"/></svg>
+                              </div>Sign In with LinkedIn</div>
+                            </a>
+                            <!-- Sharingbutton Google+ -->
+                            <a class="resp-sharing-button__link" onclick="getGoogle(localStorage.sessionid,'')" target="_blank" id='googlesignin' rel="noopener" style="width:100%;color:white;" aria-label="Sign In with Google">
+                                <div class="resp-sharing-button resp-sharing-button--google resp-sharing-button--large"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.37 12.93c-.73-.52-1.4-1.27-1.4-1.5 0-.43.03-.63.98-1.37 1.23-.97 1.9-2.23 1.9-3.57 0-1.22-.36-2.3-1-3.05h.5c.1 0 .2-.04.28-.1l1.36-.98c.16-.12.23-.34.17-.54-.07-.2-.25-.33-.46-.33H7.6c-.66 0-1.34.12-2 .35-2.23.76-3.78 2.66-3.78 4.6 0 2.76 2.13 4.85 5 4.9-.07.23-.1.45-.1.66 0 .43.1.83.33 1.22h-.08c-2.72 0-5.17 1.34-6.1 3.32-.25.52-.37 1.04-.37 1.56 0 .5.13.98.38 1.44.6 1.04 1.84 1.86 3.55 2.28.87.23 1.82.34 2.8.34.88 0 1.7-.1 2.5-.34 2.4-.7 3.97-2.48 3.97-4.54 0-1.97-.63-3.15-2.33-4.35zm-7.7 4.5c0-1.42 1.8-2.68 3.9-2.68h.05c.45 0 .9.07 1.3.2l.42.28c.96.66 1.6 1.1 1.77 1.8.05.16.07.33.07.5 0 1.8-1.33 2.7-3.96 2.7-1.98 0-3.54-1.23-3.54-2.8zM5.54 3.9c.33-.38.75-.58 1.23-.58h.05c1.35.05 2.64 1.55 2.88 3.35.14 1.02-.08 1.97-.6 2.55-.32.37-.74.56-1.23.56h-.03c-1.32-.04-2.63-1.6-2.87-3.4-.13-1 .08-1.92.58-2.5zM23.5 9.5h-3v-3h-2v3h-3v2h3v3h2v-3h3"/></svg>
+                                </div>Sign In with Google</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="register" class="d-none">
+            <div class="sufee-login d-flex align-content-center flex-wrap">
+                <div class="container">
+                    <div class="login-content">
+                        <div class="login-form">
+                            <p data-translatable>Παρακαλώ συμπληρώστε τη φόρμα για τη δημιουργία λογαριασμού. // Please fill in this form to create an account. // Veuillez remplir le formulaire de création de compte. // Bitte füllen Sie das Kontoerstellungsformular aus. // Si prega di compilare il modulo di creazione dell'account. // Complete el formulario de creación de cuenta. // アカウント作成フォームに記入してください。 // 请填写帐户创建表单。 // Пожалуйста, заполните форму создания аккаунта. // Por favor, preencha o formulário de criação de conta.</p>
+                            <div class="form-group">
+                                <label data-translatable>Όνομα Χρήστη // Username // Nom d'utilisateur // Benutzername // Nome utente // Nombre de usuario // ユーザー名 // 用户名 // имя пользователя // Nome de usuário</label>
+                                <input id="registerusername" class="form-control" placeholder="User Name">
+                            </div>
+                            <div class="form-group">
+                                <label data-translatable>Email // Email // Email // Email // Email // Correo electrónico // メール // 电子邮件 // Электронная почта // E-mail</label>
+                                <input type="email" id="registeremail" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label data-translatable>Κωδικός // Password // Mot de passe // Passwort // Password // Contraseña // パスワード // 密码 // пароль // Senha</label>
+                                <input type="password" id="registerpwd" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label data-translatable>Επανάληψη Κωδικού // Repeat Password // Code de répétition // Passwort wiederholen // Ripeti password // Contraseña repetida // 繰り返しコード // 重复密码 // повторный пароль // Código repetido</label>
+                                <input type="password" id="registerpwd-repeat" class="form-control" placeholder="Repeat Password">
+                            </div>
+                            <strong data-translatable>Με τη δημιουργία λογαριασμού αποδέχεσθε  // By creating an account you agree to our  // Création de compte  // Kontoerstellung  // Creazione account  // Creación de cuenta  // アカウント作成  // 帐户创建  // создание учетной записи  // Criação de conta  </strong>
+                            <a href="https://wineroutes.eu/termsandconditions.pdf" target="_blank" style="color:dodgerblue" data-translatable>όρους και ιδιωτικότητα // terms & privacy // conditions et confidentialité // Nutzungsbedingungen und Datenschutz // termini e privacy // términos y privacidad // 利用規約、プライバシー // 条款和隐私 // условия и конфиденциальность // termos e privacidade</a>
+                            <button class="btn btn-primary btn-flat m-b-30 m-t-30" onclick="register()" data-translatable>Εγγραφή // Sign Up // Enregistrement // Registrierung // Registrazione // Registro // 登録 // Регистрация // Registro</button>
+                            <div class="register-link m-t-15 text-center">
+                                <a onclick="document.getElementById('register').classList.add('d-none');document.getElementById('register').classList.remove('d-block');document.getElementById('login').classList.add('d-block');document.getElementById('login').classList.remove('d-none');"><p data-translatable>Είσοδος // Login // Connexion // Login // Login // Iniciar sesión // ログイン // 登录 // Логин // Login</p></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="reset" class="d-none">
+            <div class="sufee-login d-flex align-content-center flex-wrap">
+                <div class="container">
+                    <div class="login-content">
+                        <div class="login-form">
+                            <p data-translatable>Παρακαλώ συμπληρώστε τη διεύθυνση e-mail με το οποίο είστε εγγεγραμμένος. // Please fill the e-mail address you are registered by. // S'il vous plaît remplir l'adresse e-mail avec laquelle vous êtes inscrit. // Bitte geben Sie die E-Mail-Adresse ein, mit der Sie registriert sind. // Ti preghiamo di inserire l'indirizzo e-mail con il quale sei registrato. // Complete la dirección de correo electrónico con la que está registrado. // 登録されているメールアドレスを入力してください。 // 请填写您注册的电子邮件地址。 // Пожалуйста, заполните адрес электронной почты, на котором вы зарегистрированы. // Por favor, preencha o endereço de e-mail com o qual você está registrado.</p>
+                            <hr>
+                            <label data-translatable>Email // Email // Email // Email // Email // Correo electrónico // メール // 电子邮件 // Электронная почта // E-mail</label>
+                            <input id="myresetemail" type="email" class="form-control" placeholder="Email">
+                            <button class="btn btn-primary btn-flat m-b-15" onclick="resetpwd()" data-translatable>Υποβολή // Submit // Soumettre // Senden // Invia // Enviar // 送信 // 提交 // Отправить // Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="profile" class="d-none">
+            <div class="sufee-login d-flex align-content-center flex-wrap">
+                <div class="container">
+                    <div class="login-content">
+                        <div class="login-form">
+                            <ul class="nav nav-tabs nav-fill row no-gutters" role="tablist" style="width:100%;">
+                                <li class="nav-itemtext-center"><a class="nav-link active" data-toggle="tab" href="#nav-account-profile" role="tab" data-translatable>Προφίλ // Profile // Profils // Profile // Profili // Perfiles // プロファイル // 配置文件 // Профили // Perfis</a></li>
+                                <li class="nav-itemtext-center"><a class="nav-link" data-toggle="tab" href="#nav-account-access" role="tab" data-translatable>Πρόσβαση // Access // Accès // Zugang // Accesso // Acceso // アクセス // 注册 // Доступ // Acesso</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade row" id="nav-account-access" role="tabpanel" aria-labelledby="nav-account-access">
+                                    <p data-translatable>Μπορείτε να ενημερώσετε τα στοιχεία του λογαριασμού σας για πρόσβαση στην εφαρμογή. // You can update your account details for app access. // Vous pouvez mettre à jour les informations de votre compte pour accéder à l'application. // Sie können Ihre Kontoinformationen aktualisieren, um auf die App zuzugreifen. // Puoi aggiornare le informazioni del tuo account per accedere all'app. // Puede actualizar la información de su cuenta para acceder a la aplicación. // アカウント情報を更新して、アプリにアクセスできます。 // 您可以更新帐户信息以访问该应用。 // Вы можете обновить информацию своей учетной записи, чтобы получить доступ к приложению. // Você pode atualizar as informações da sua conta para acessar o aplicativo.</p>
+                                    <hr>
+                                    <div class="form-group">
+                                        <label data-translatable>Email // Email // Email // Email // Email // Correo electrónico // メール // 电子邮件 // Электронная почта // E-mail</label>
+                                        <input class="form-control" type="text" name="email" id="accountemail" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label data-translatable>Όνομα Χρήστη // Username // Nom d'utilisateur // Benutzername // Nome utente // Nombre de usuario // ユーザー名 // 用户名 // имя пользователя // Nome de usuário</label>
+                                        <input class="form-control" type="text" name="username" id="accountusername" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label data-translatable>Κωδικός // Password // Mot de passe // Passwort // Password // Contraseña // パスワード // 密码 // пароль // Senha</label>
+                                        <input class="form-control" type="password" name="psw" id="accountpwd" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label data-translatable>Επανάληψη Κωδικού // Repeat Password // Code de répétition // Passwort wiederholen // Ripeti password // Contraseña repetida // 繰り返しコード // 重复密码 // повторный пароль // Código repetido</label>
+                                        <input class="form-control" type="password" name="psw-repeat" id="accountpwd-repeat"required>
+                                    </div>
+                                    <div>
+                                        <form method="post" enctype="multipart/form-data">
+                                            <fieldset>
+                                                <label for="avatar" data-translatable>Επιλέξτε αρχείο // Select a file // Choisir un fichier // Datei auswählen // Scegli il file // Elegir archivo // ファイルを選択 // 选择文件 // выберите файл // Escolha arquiv</label>
+                                                <input id="upload-avatar" name="avatar" type="file"/>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade show active row" id="nav-account-profile" role="tabpanel" aria-labelledby="nav-account-profile">
+                                    <p data-translatable>Μπορείτε να ενημερώσετε το προφίλ σας. // You can update your profile. // Vous pouvez mettre à jour votre profil. // Sie können Ihr Profil aktualisieren. // Puoi aggiornare il tuo profilo. // Puedes actualizar tu perfil. // プロフィールを更新できます。 // 您可以更新个人资料。 // Вы можете обновить свой профиль. // Você pode atualizar seu perfil.</p>
+                                    <hr>
+                                    <div class="form-group">
+                                        <label data-translatable>Σύντομη περιγραφή // Short description // Brève description // Kurze Beschreibung // Breve descrizione // Breve descripción // 簡単な説明 // 简短说明 // Краткое описание // Breve descrição</label>
+                                        <input class="form-control" type="text" name="shortdesc" id="shortdescription_upd" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label data-translatable>Οίνοι που μου αρέσουν // Wines I like // J'aime les vins // Ich mag Weine // Mi piacciono i vini // Me gustan los vinos // ワインが好き // 我喜欢葡萄酒 // я люблю вина // Eu gosto de vinhos</label>
+                                        <input class="form-control" type="text" name="wineslike" id="wineslike_upd" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label data-translatable>Οίνοι που δε μου αρέσουν // Wines I dislike // Je n'aime pas les vins // Ich mag keine Weine // Non mi piacciono i vini // No me gustan los vinos // ワインが好きではない // 我不喜欢葡萄酒 // я не люблю вина // Eu não gosto de vinhos</label>
+                                        <input class="form-control" type="text" name="winesdislike" id="winesdislike_upd" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="accountupdate()" data-translatable>Ενημέρωση Στοιχείων // Update Account // Mettre à jour les informations // Informationen aktualisieren // Aggiorna informazioni // Actualizar información // 情報を更新 // 更新信息 // обновите информацию // Atualização de informações</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="content d-none">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <!-- Widgets  -->
+                <div class="row">
+                    <div class="col-lg-2 col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib flat-color-1">
+                                        <i class="fa fa-eye"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text" id="views"></div>
+                                            <div class="stat-heading" data-translatable>Προβολές // Views // Vues // Ansichten // Visualizzazioni // Puntos de vista // 視聴回数 // 观看次数 // Просмотры // Visualizações</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib flat-color-2">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text" id="uniqueviewers"></div>
+                                            <div class="stat-heading" data-translatable>Επισκέπτες // Visitors // Visiteurs // Besucher // I visitatori // Visitantes // 訪問者 // 参观者 // Посетители // Visitantes</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib flat-color-3">
+                                        <i class="fa fa-heart"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text" id="likes"></div>
+                                            <div class="stat-heading">Likes</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <i class="fa fa-file-text-o"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text" id="reviews"></div>
+                                            <div class="stat-heading" data-translatable>Αξιολογήσεις // Reviews // Commentaires // Bewertungen // Recensioni // Comentarios // レビュー // 评论 // Отзывы // Rever</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib flat-color-5">
+                                        <i class="fa fa-hand-o-up"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text" id="clicks"></div>
+                                            <div class="stat-heading">Site clicks</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib flat-color-6">
+                                        <i class="fa fa-thumbs-up"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text" id="rating"></div>
+                                            <div class="stat-heading" data-translatable>Βαθμολογία // Rating // Classement // Bewertung // Valutazione // Calificación // 評価 // 评级 // Рейтинг // Classificação</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="box-title" data-translatable>Κίνηση // Traffic // Trafic // Der Verkehr // Traffico // Tráfico // トラフィック // 交通 // Движение // Tráfego</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card-body">
+                                        <div id="traffic-chart" class="traffic-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="winerydetails">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header"><strong data-translatable>Λεπτομέρειες  // Details  // Détails  // Details  // Dettagli  // Detalles  // 詳細  // 详细信息  // Детали  // Detalhes  </strong><button id="winerystatus" class="btn btn-sm"></button></div>
+                                <div class="card-body card-block">
+                                    <div class="row form-group">
+                                        <div class="col-md-6">
+                                            <div class="form-group text-center">
+                                                <label for="file-input">
+                                                    <img id="avatar" class="img-fluid"/>
+                                                </label>
+                                                <div class="col-12">
+                                                    <input class="d-block mx-auto" id="wineryavatar" type="file"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="winerylocation" class="form-control-label" data-translatable>Κλικ για τοποθεσία οινοποιείου // Click for winery location // Cliquez pour l'emplacement de la cave // Klicken Sie hier, um den Standort des Weinguts anzuzeigen // Clicca per la posizione della cantina // Haga clic para ver la ubicación de la bodega. // ワイナリーの場所をクリック // 点击查看酒庄位置 // Нажмите для местоположения винодельни // Clique para localização da vinícola</label>
+                                            <div id="winerylocation" class="map" style="position:relative;height:234px;" ></div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-md-4">
+                                            <div class="row form-group">
+                                                <div class="col-12">
+                                                    <div class="form-group"><label for="wineryname" class="form-control-label" data-translatable>Επωνυμία // Name // Nom // Name // Nome // Nombre // 名前 // 名称 // имя // Nome</label><input type="text" id="wineryname" placeholder="Enter your company name" class="form-control"></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group"><label for="wineryemail" class="form-control-label" data-translatable>Email // Email // Email // Email // Email // Correo electrónico // メール // 电子邮件 // Электронная почта // E-mail</label><input type="text" id="wineryemail" placeholder="Enter your company name" class="form-control"></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group"><label for="wineryphone" class="form-control-label" data-translatable>Τηλέφωνο // Phone // Téléphone // Telefon // Telefono // Teléfono // 電話 // 电话 // Телефон // Telefone</label><input type="text" id="wineryphone" placeholder="Enter your company name" class="form-control"></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group"><label for="winerywebsite" class="form-control-label" data-translatable>Ιστότοπος // Website // Site Internet // Website // Sito web // Sitio web // ウェブサイト // 网站 // Веб-сайт // Local na rede Internet</label><input type="text" id="winerywebsite" placeholder="Enter your company name" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row form-group">
+                                                <div class="col-12">
+                                                    <div class="form-group"><label for="winerycountry" class="form-control-label" data-translatable>Χώρα // Country // Pays // Land // Paese // Pais // 国 // 国别 // страна // País de origem</label><input type="text" id="winerycountry" placeholder="Enter your company name" class="form-control"></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group"><label for="wineryregion" class="form-control-label" data-translatable>Περιφέρεια // Region // Région // Region // Regione // Región // 領域 // 区域 // Область // Região</label><input type="text" id="wineryregion" placeholder="Enter your company name" class="form-control"></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group"><label for="wineryprefecture" class="form-control-label" data-translatable>Περιφερειακή Ενότητα // Prefecture // Préfecture // Präfektur // Prefettura // Prefectura // 県 // 州 // Префектура // Prefeitura</label><input type="text" id="wineryprefecture" placeholder="Enter your company name" class="form-control"></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group"><label for="wineryaddress" class="form-control-label" data-translatable>Διεύθυνση // Address // Adresse // Adresse // Indirizzo // Habla a // 住所 // 地址 // Адрес // Endereço</label><input type="text" id="wineryaddress" placeholder="Enter your company name" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group"><label for="winerydescription" class="form-control-label" data-translatable>Περιγραφή // Description // Description // Beschreibung // Descrizione // Descripción // 説明 // 描述 // Описание // Descrição</label><textarea name="textarea-input" id="winerydescription" rows="6" placeholder="Content..." class="form-control"></textarea></div>
+                                            <div><label for="wineryepiskepsimo" class="form-control-label" data-translatable>Ώρες επίσκεψης // Hours of visit // Heures de visite // Stunden des Besuchs // Orari di visita // Horas de visita // 訪問時間 // 参观时间 // Часы посещения // Horário da visita</label><textarea name="textarea-input" id="wineryepiskepsimo" rows="3" placeholder="Content..." class="form-control"></textarea></div>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <button type="button" id="updatewinerydata" onclick="updatewinery()" class="btn btn-primary" data-translatable>Ενημέρωση στοιχείων οινοποιείου // Update winery details // Mettre à jour les détails de la cave // Weingutdetails aktualisieren // Aggiorna i dettagli della cantina // Actualizar detalles de la bodega // ワイナリーの詳細を更新する // 更新酒厂详细信息 // Обновить информацию о винодельне // Atualizar detalhes da vinícola</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="winedetails">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body" style="width:100%;">
+                                    <h4 class="box-title" data-translatable>Οι οίνοι μου // My wines // Mes vins // Meine Weine // I miei vini // Mis vinos // 私のワイン // 我的酒 // Мои вина // Meus vinhos</h4>
+                                    <form id="winesform">
+                                        <div class="row form-group">
+                                            <div class="col-md-4">
+                                                <label data-translatable>Επωνυμία // Name // Nom // Name // Nome // Nombre // 名前 // 名称 // имя // Nome</label>
+                                                <input type="text" name="name" class="form-control" value="" required>
+                                            </div>
+                                             <div class="col-md-4">
+                                                <label data-translatable>Χρώμα // Color // Couleur // Farbe // Colore // Color // 色 // 颜色 // цвет // Cor</label>
+                                                <input type="text" name="color" class="form-control" value="" required>
+                                            </div>
+                                             <div class="col-md-4">
+                                                <label data-translatable>Ποικιλία // Appelation // Appelation // Bezeichnung // Appellativo // Denominación // アペラシオン // 称谓 // название // Apelação</label>
+                                                <input type="text" name="appelation" class="form-control" value="" required>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-md-4">
+                                                <label data-translatable>Περιφέρεια // Region // Région // Region // Regione // Región // 領域 // 区域 // Область // Região</label>
+                                                <input type="text" name="region" class="form-control" value="" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label data-translatable>Εσοδεία // Vintage // Ancien // Jahrgang // Vintage // Vendimia // ビンテージ // 年份酒 // марочный // Vintage</label>
+                                                <input type="number" name="vintage" class="form-control" value="" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label data-translatable>Χαρακτηριστικά // Characteristics // Les caractéristiques // Eigenschaften // Caratteristiche // Caracteristicas // 特徴 // 特点 // Характеристики // Características</label>
+                                                <input type="text" name="characteristics" class="form-control" value="" required>
+                                            </div>                                            
+                                        </div>
+                                    </form>
+                                    <div class="float-right"><button type="submit" class="btn btn-primary save-btn" data-translatable>Αποθήκευση // Save // Enregistrer // Speichern // Salva // Guardar // 保存 // 保存 // Сохранить // Salvar</button></div>
+                                    <br/>
+                                    <table id="winestable" class="table table-bordered data-table">
+                                        <thead>
+                                            <th data-translatable>Επωνυμία // Name // Nom // Name // Nome // Nombre // 名前 // 名称 // имя // Nome</th>
+                                            <th data-translatable>Χρώμα // Color // Couleur // Farbe // Colore // Color // 色 // 颜色 // цвет // Cor</th>
+                                            <th data-translatable>Ποικιλία // Appelation // Appelation // Bezeichnung // Appellativo // Denominación // アペラシオン // 称谓 // название // Apelação</th>
+                                            <th data-translatable>Περιφέρεια // Region // Région // Region // Regione // Región // 領域 // 区域 // Область // Região</th>
+                                            <th data-translatable>Ποικιλία // Appelation // Appelation // Bezeichnung // Appellativo // Denominación // アペラシオン // 称谓 // название // Apelação</th>
+                                            <th data-translatable>Χαρακτηριστικά // Characteristics // Les caractéristiques // Eigenschaften // Caratteristiche // Caracteristicas // 特徴 // 特点 // Характеристики // Características</th>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <button type="button" class="btn btn-primary float-right" onclick="updatewines()" data-translatable>Ενημέρωση στοιχείων οίνων // Update my wines // Mettre à jour mes vins // Aktualisiere meine Weine // Aggiorna i miei vini // Actualizar mis vinos // ワインを更新する // 更新我的酒 // Обнови мои вина // Atualizar meus vinhos</button>
+                                    <script type="text/javascript">
+                                        $('.save-btn').on('click', function () {
+                                            console.log("5555555555555");
+                                            //e.preventDefault();
+                                            var form = $("#winesform")
+                                            if (form[0].checkValidity() === false) {
+                                              event.preventDefault();
+                                              event.stopPropagation();
+                                              toastr.error(names[15]);
+                                            } else {
+                                                form.addClass('was-validated');
+                                                var name = $("input[name='name']").val();
+                                                var color = $("input[name='color']").val();
+                                                var appelation = $("input[name='appelation']").val();
+                                                var region = $("input[name='region']").val();
+                                                var vintage = $("input[name='vintage']").val();
+                                                var characteristics = $("input[name='characteristics']").val();
+                                                $(".data-table tbody").append("<tr data-name='"+name+"' data-color='"+color+"' data-appelation='"+appelation+"' data-region='"+region+"' data-vintage='"+vintage+"' data-characteristics='"+characteristics+"'><td>"+name+"</td><td>"+color+"</td><td>"+appelation+"</td><td>"+region+"</td><td>"+vintage+"</td><td>"+characteristics+
+                                                    "</td><td><button class='btn btn-info btn-xs btn-edit'>Edit</button><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");
+                                                $("input[name='name']").val('');
+                                                $("input[name='color']").val('');
+                                                $("input[name='appelation']").val('');
+                                                $("input[name='region']").val('');
+                                                $("input[name='vintage']").val('');
+                                                $("input[name='characteristics']").val('');
+                                            };
+                                        });
+                                        $("body").on("click", ".btn-delete", function(){
+                                            $(this).parents("tr").remove();
+                                        });
+                                        $("body").on("click", ".btn-edit", function(){
+                                            var name = $(this).parents("tr").attr('data-name');
+                                            var color = $(this).parents("tr").attr('data-color');
+                                            var appelation = $(this).parents("tr").attr('data-appelation');
+                                            var region = $(this).parents("tr").attr('data-region');
+                                            var vintage = $(this).parents("tr").attr('data-vintage');
+                                            var characteristics = $(this).parents("tr").attr('data-characteristics');
+                                            $(this).parents("tr").find("td:eq(0)").html('<input name="edit_name" value="'+name+'">');
+                                            $(this).parents("tr").find("td:eq(1)").html('<input name="edit_color" value="'+color+'">');
+                                            $(this).parents("tr").find("td:eq(2)").html('<input name="edit_appelation" value="'+appelation+'">');
+                                            $(this).parents("tr").find("td:eq(3)").html('<input name="edit_region" value="'+region+'">');
+                                            $(this).parents("tr").find("td:eq(4)").html('<input name="edit_vintage" value="'+vintage+'">');
+                                            $(this).parents("tr").find("td:eq(5)").html('<input name="edit_characteristics" value="'+characteristics+'">');
+                                            $(this).parents("tr").find("td:eq(6)").prepend("<button class='btn btn-info btn-xs btn-update'>Update</button><button class='btn btn-warning btn-xs btn-cancel'>Cancel</button>")
+                                            $(this).hide();
+                                        });
+                                        $("body").on("click", ".btn-cancel", function(){
+                                            var name = $(this).parents("tr").attr('data-name');
+                                            var color = $(this).parents("tr").attr('data-color');
+                                            var appelation = $(this).parents("tr").attr('data-appelation');
+                                            var region = $(this).parents("tr").attr('data-region');
+                                            var vintage = $(this).parents("tr").attr('data-vintage');
+                                            var characteristics = $(this).parents("tr").attr('data-characteristics');
+                                            $(this).parents("tr").find("td:eq(0)").text(name);
+                                            $(this).parents("tr").find("td:eq(1)").text(color);
+                                            $(this).parents("tr").find("td:eq(2)").text(appelation);
+                                            $(this).parents("tr").find("td:eq(3)").text(region);
+                                            $(this).parents("tr").find("td:eq(4)").text(vintage);
+                                            $(this).parents("tr").find("td:eq(5)").text(characteristics);
+                                            $(this).parents("tr").find(".btn-edit").show();
+                                            $(this).parents("tr").find(".btn-update").remove();
+                                            $(this).parents("tr").find(".btn-cancel").remove();
+                                        });
+                                        $("body").on("click", ".btn-update", function(){
+                                            var name = $(this).parents("tr").find("input[name='edit_name']").val();
+                                            var color = $(this).parents("tr").find("input[name='edit_color']").val();
+                                            var appelation = $(this).parents("tr").find("input[name='edit_appelation']").val();
+                                            var region = $(this).parents("tr").find("input[name='edit_region']").val();
+                                            var vintage = $(this).parents("tr").find("input[name='edit_vintage']").val();
+                                            var characteristics = $(this).parents("tr").find("input[name='edit_characteristics']").val();
+                                            $(this).parents("tr").find("td:eq(0)").text(name);
+                                            $(this).parents("tr").find("td:eq(1)").text(color);
+                                            $(this).parents("tr").find("td:eq(2)").text(appelation);
+                                            $(this).parents("tr").find("td:eq(3)").text(region);
+                                            $(this).parents("tr").find("td:eq(4)").text(vintage);
+                                            $(this).parents("tr").find("td:eq(5)").text(characteristics);
+                                            $(this).parents("tr").attr('data-name', name);
+                                            $(this).parents("tr").attr('data-color', color);
+                                            $(this).parents("tr").attr('data-appelation', appelation);
+                                            $(this).parents("tr").attr('data-region', region);
+                                            $(this).parents("tr").attr('data-vintage', vintage);
+                                            $(this).parents("tr").attr('data-characteristics', characteristics);
+                                            $(this).parents("tr").find(".btn-edit").show();
+                                            $(this).parents("tr").find(".btn-cancel").remove();
+                                            $(this).parents("tr").find(".btn-update").remove();
+                                        });
+                                    </script>
+                                </div>
+                                <div class="card-body--">
+                                </div>
+                            </div> <!-- /.card -->
+                        </div>
+                    </div>
+                </div>
+                <div class="wineryphotos">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="box-title" data-translatable>Οι φωτογραφίες μου // My images // My images // Meine Bilder // Le mie immagini // Mis imagenes // 私の画像 // 我的图片 // Мои изображения // Minhas imagens</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="controls" id="previous" data-translatable>Προηγούμενο // Previous // Précédent // Vorherige // Precedente // Anterior // 前 // 上一个 // Предыдущая // Anterior</button>
+                                            <button class="controls" id="next" data-translatable>Επόμενο // Next // Suivant // Nächste // Successivo // Siguiente // 次 // 下一个 // Следующая // Próximo</button>
+                                            <div class="slider" id="slider"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <input type="file" name="myphotos" id="myphotos" accept=".png, .jpg, .jpeg" class="btn btn-default" onchange="readFile(this);" multiple>
+                                                </div>
+                                                <div class="col-md-4 float-right">
+                                                    <button type="button" onclick="uploadFiles()" class="btn btn-primary" data-translatable>Ανεβάστε αρχεία // Upload files // Télécharger des fichiers // Daten hochladen // Caricare files // Subir archivos // ファイルをアップロードする // 上传文件 // Загрузить файлы // Fazer upload de arquivos</button>
+                                                </div>
+                                            </div>
+                                            <div id="mystatus"></div>
+                                            <div id="photos" class="row"></div>
+                                            <script>
+                                                function readFile(input) {
+                                                    $("#mystatus").html('Processing...');
+                                                    counter = input.files.length;
+                                                    for(x = 0; x<counter; x++){
+                                                        if (input.files && input.files[x]) {
+                                                            var reader = new FileReader();
+                                                            reader.onload = function (e) {
+                                                                console.log(e.target.result);
+                                                                $("#photos").append('<div class="col-md-3 col-sm-3 col-xs-3"><img src="'+e.target.result+'" class="img-thumbnail"></div>');
+                                                            };
+                                                            reader.readAsDataURL(input.files[x]);
+                                                        };
+                                                    };
+                                                    if(counter == x){$("#mystatus").html('');}
+                                                };
+                                                function uploadFiles() {
+                                                    var file = document.getElementById("myphotos")//All files
+                                                    document.getElementById("progress").style.display = "block";
+                                                    for (var i = 0; i < file.files.length; i++) {
+                                                        uploadSingleFile(file.files[i], i);
+                                                    }
+                                                    document.getElementById("progress").style.display = "none";
+                                                };
+                                                function uploadSingleFile(file, i) {
+                                                    var data = new FormData();
+                                                    data.append('file', file);
+                                                    console.log(sessionStorage.wineryid);
+                                                    data.append('wineryid', sessionStorage.wineryid);
+                                                    data.append('sessionid', localStorage.sessionid);
+                                                    fetch('https://app.wineroutes.eu/uploadadmin', {
+                                                        method: 'POST',body: data
+                                                    }).then(function(response) {return response.json();})
+                                                    .then(function(response) {
+                                                        console.log(response);
+                                                        if (response=="Success"){toastr.success(names[14]);}
+                                                        else {toastr.error(names[6]);};
+                                                    });
+                                                };
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body--">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="books">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <script type="text/javascript" language="javascript" src="http://www.ftjcfx.com/widget-5ddeb8faf8fef68e808df479-100003902?target=_top&mouseover=Y"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.content -->
+        <div class="clearfix"></div>
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-inner bg-white">
+                <div class="row">
+                    <div class="col-sm-6">
+                        Copyright &copy; 2018 Ela Admin
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        Designed by <a href="https://colorlib.com">Colorlib</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <script src="js/wineryadmin.js"></script>
+</body>
+</html>

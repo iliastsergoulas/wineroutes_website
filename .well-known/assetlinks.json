@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.phonegap.wineroutes",
+    "sha256_cert_fingerprints":
+    ["F6:E2:00:A9:83:05:42:01:38:06:96:E2:FA:A9:9C:D6:72:27:22:0C:FB:09:EE:3C:7E:3F:EE:1D:35:2B:5B:1D"]
+  }
+}]
